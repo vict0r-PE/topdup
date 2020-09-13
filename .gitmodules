@@ -1,0 +1,3 @@
+[submodule "src/docbao"]
+	path = src/docbao
+	url = https://github.com/hailoc12/docbao
