@@ -47,13 +47,15 @@ Example:
 # Docker
 (Pending)
 ## Setup
-
+Set Username, Password for Data crawler Receiver in .env
 ```
-    setup username, password in .env-example
-    change file name .env-example to .env
+    USERNAME_MONITOR='user'
+    PASSWORD_MONITOR='pass'
 ```
 ## Build & Run
 ```
     docker-compose build
     docker-compose up
 ```
+## Cronjob
+(In Progress)
