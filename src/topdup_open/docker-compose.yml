@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    build: .
+    image: topdup:version1.0
+    command: python3 run_app.py
+    ports:
+    - "5000:5000"
+    volumes:
+    - .:/app
+    environment:
+    - USERNAME_MONITOR=${USERNAME_MONITOR}
+    - PASSWORD_MONITOR=${PASSWORD_MONITOR}

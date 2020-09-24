@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<table id="home_table" class="display">
+    <caption align="align-top">Bài viết trùng lặp</caption>
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Title</th>
+            <th>Website</th>
+            <th>Similarity Score</th>
+            <th>Published Date</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for post in posts %}
+    {% if post.similar_post != []%}
+        <tr>
+            <td></td>
+            <td>
+                <a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a>
+                {% for similar_post in post.similar_post[:3] %}
+                    <br><a href="{{ url_for('post', post_id=similar_post.id) }}">{{ similar_post.title}}</a>
+                {% endfor %}
+            </td>
+            <td>
+                {{ post.domain }}
+                {% for similar_post in post.similar_post[:3] %}
+                    <br>{{ similar_post.domain }}
+                {% endfor %}
+            </td>
+            <td>
+                {% for similar_post in post.similar_post[:3] %}
+                    <br>{{ "%.2f"| format(similar_post.score)}}
+                {% endfor %}
+            </td>
+            <td>
+                {% for similar_post in post.similar_post[:3] %}
+                    <br>{{ similar_post.publish_time}}
+                {% endfor %}
+            </td>
+        </tr>
+    {% endif %}
+{% endfor %}
+</tbody>
+</table>
+
+<table id="all_posts_table" class="display">
+    <caption> Bài viết mới </caption>
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Title</th>
+            <th>Website</th>
+            <th>Published Date</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for post in all_posts %}
+    <tr>
+        <td></td>
+        <td>
+            <a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a>
+        </td>
+        <td>
+            {{ post.domain }}
+        </td>
+        <td>
+            {{ post.publish_time.split('.')[0]}}
+        </td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock content %}
