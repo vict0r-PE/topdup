@@ -7,8 +7,6 @@
     pip install -r requirements.txt
 ```
 
-Change config path 
-
 Set Username, Password for Data crawler Receiver in .env
 ```
     USERNAME_MONITOR='your_username'
