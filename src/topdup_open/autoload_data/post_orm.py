@@ -98,20 +98,20 @@ def load_pickle_data(fn):
 
 
 # will be removed when integrate to rabbitmq
-df = pd.read_csv(_config.FAKE_DATASET)
+# df = pd.read_csv(_config.FAKE_DATASET)
 
 
-def fake_data():
-    id = randint(0, len(df)-1)
-    item = df.loc[id]
-    try:
-        url = item['link']
-    except:
-        url = ''
-    post = Post(
-        title=item['title'],
-        content=item['content'],
-        author='author',
-        url=url,
-    )
-    return post
+# def fake_data():
+#     id = randint(0, len(df)-1)
+#     item = df.loc[id]
+#     try:
+#         url = item['link']
+#     except:
+#         url = ''
+#     post = Post(
+#         title=item['title'],
+#         content=item['content'],
+#         author='author',
+#         url=url,
+#     )
+#     return post
