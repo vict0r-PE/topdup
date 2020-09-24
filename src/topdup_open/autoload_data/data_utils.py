@@ -20,7 +20,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from ._config import *
 from .raw_post import RawPost
 from .post_orm import Post
-from .post_orm import fake_data, create_session, load_pickle_data
+from .post_orm import create_session, load_pickle_data
 from .utils.text_utils import doc2vec, compute_doc_similarity, check_valid_content
 from .log import get_logger
 from .utils import save_body_to_pickle, load_body_from_pickle
@@ -119,11 +119,6 @@ def read_data_from_source(data_source='rabbitmq'):
         all_body = load_body_from_pickle()
         logger.debug(f"Number of data_body in pickle file: {len(all_body)}")
         posts = [RawPost(body).to_orm_post() for body in all_body]
-        return posts
-
-    if data_source == "fake":
-        # fake data from fake_dataset.csv
-        posts = [fake_data() for i in range(20)]
         return posts
 
     # connect to RabbitMQ
