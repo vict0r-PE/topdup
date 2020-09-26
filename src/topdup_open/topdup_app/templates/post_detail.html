@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<table id="detail_table" class="display">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Posts</th>
+            <th>Similarity Score</th>
+            <th>Website</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td>{{post.title}}</td>
+            <td></td>
+            <td><a href="{{post.url}}">{{post.domain}}</a></td>
+        </tr>
+        {% for similar_post in post.similar_post %}
+            <tr>
+                <td></td>
+                <td>{{ similar_post.title }}</td>
+                <td>{{ "%0.4f"|format(similar_post.score) }}</td>
+                <td><a href="{{ similar_post.url }}">{{ similar_post.domain }}</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
