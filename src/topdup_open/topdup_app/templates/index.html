@@ -35,7 +35,7 @@
             </td>
             <td>
                 {% for similar_post in post.similar_post[:3] %}
-                    <br>{{ similar_post.publish_time}}
+                    <br>{{ similar_post.publish_time.split('.')[0]}}
                 {% endfor %}
             </td>
         </tr>

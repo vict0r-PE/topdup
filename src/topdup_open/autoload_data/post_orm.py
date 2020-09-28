@@ -10,10 +10,11 @@ from sqlalchemy import create_engine
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
+from .log import get_logger
 from . import _config
 
 
+logger = get_logger(__name__)
 engine = create_engine(_config.DATABASE_URI, echo=False)
 Base = declarative_base()
 
@@ -95,6 +96,24 @@ def load_pickle_data(fn):
             print("pickle file is empty")
     return all_data
 
+
+def check_valid_post(post, session):
+    try:
+        l = len(post.content)
+        if l < _config.MIN_CHARACTER_LEN:
+            logger.debug(f'post content is too short: length {l}, {post.title},  {post.url}')
+            return False
+
+        all_post = session.query(Post.title, Post.url).all()
+        for title, url in all_post:
+            if post.title == title and post.url == url:
+                logger.debug('This post is already exists in database')
+                return False
+        return True
+
+    except Exception as e:
+        logger.exception(e)
+        return False
 
 
 # will be removed when integrate to rabbitmq

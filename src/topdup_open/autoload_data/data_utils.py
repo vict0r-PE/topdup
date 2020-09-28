@@ -15,13 +15,12 @@ from random import randint, choice, choices
 from datetime import datetime, timedelta
 from scipy.sparse import csr_matrix, vstack
 from sklearn.metrics.pairwise import cosine_similarity
-# from pysparnn import cluster_index
 
 from ._config import *
 from .raw_post import RawPost
 from .post_orm import Post
-from .post_orm import create_session, load_pickle_data
-from .utils.text_utils import doc2vec, compute_doc_similarity, check_valid_content
+from .post_orm import create_session, load_pickle_data, check_valid_post
+from .utils.text_utils import doc2vec, compute_doc_similarity
 from .log import get_logger
 from .utils import save_body_to_pickle, load_body_from_pickle
 
@@ -40,13 +39,11 @@ def handle_post(new_posts):
         return
     session = create_session()
     for post in new_posts:
-        is_valid = check_valid_content(post.content)
+        is_valid = check_valid_post(post, session)
         if is_valid:
             session.add(post)
             post.embedd_vector = doc2vec(post.content)
         else:
-            logger.debug(
-                f'post content is too short: length {len(post.content)}, {post.title},  {post.url}, ')
             post.embedd_vector = None
 
     new_posts = [post for post in new_posts if post.embedd_vector is not None]
@@ -111,7 +108,7 @@ This program will check repeatedly if there are new post in RabbitMQ queue. If t
 it will parse binary message into Post() object, and for each Post instance, call Post.push_to_database()
 to save it in database.
 """
-def read_data_from_source(data_source='rabbitmq'):
+def read_data_from_source(data_source='rabbitmq', save_raw_data=False):
     """
     Start a process that get data from RabbitMQ then push to database
     """
@@ -120,7 +117,7 @@ def read_data_from_source(data_source='rabbitmq'):
         logger.debug(f"Number of data_body in pickle file: {len(all_body)}")
         posts = [RawPost(body).to_orm_post() for body in all_body]
         return posts
-
+    
     # connect to RabbitMQ
     # login
     credentials = pika.PlainCredentials(USERNAME, PASSWORD)
@@ -141,13 +138,14 @@ def read_data_from_source(data_source='rabbitmq'):
     while (queue_length >= 1 and count_post < MAX_POST):
         queue_length -= 1
         count_post += 1
-        method, properties, body = channel.basic_get(POST_QUEUE, auto_ack=True)
+        _, _, body = channel.basic_get(POST_QUEUE, auto_ack=True)
         if body is not None:
             # parse message into Post
             post = RawPost(body)
             posts.append(post)
-
-    save_body_to_pickle([p._body for p in posts])
+    
+    if save_raw_data:
+        save_body_to_pickle([p._body for p in posts])
     posts = [p.to_orm_post() for p in posts]
     connection.close()
     return posts

@@ -1,22 +1,21 @@
 
-# Virtual Env
-## Set up environment
+# 1. Virtual Env
+## 1.1 Set up environment
 ```
-    virtualenv -p python3 env
-    source env/bin/activate
+    virtualenv -p python3 venv
+    source venv/bin/activate
     pip install -r requirements.txt
 ```
 
-Set Username, Password for Data crawler Receiver in .env
+Copy file **.env-example** &#8594; **.env** . Then set Username, Password for Data crawler Receiver in file .env
 ```
     USERNAME_MONITOR='your_username'
     PASSWORD_MONITOR='your_pass'
 ```
 
-
-
 ## Dataset
-Download dataset in: [post_database.db](https://drive.google.com/file/d/1YtXEDgFQPpZRT3eeCdVKiGWkNRi8lW48) and put it in folder /dataset
+Download database, tf-idf-model, post_embedded_vector... in: [Topdup dataset](https://drive.google.com/drive/folders/1UcSU9CcTtv3o1mPuLpmFYrhEK2fJcTuC?usp=sharing) and put it in folder ./dataset
+
 ## Auto load data and save to database
 ```
     python run_autoload.py
@@ -44,7 +43,7 @@ Example:
     * * * * * /home/doan.bao.linh/env/bin/python /home/doan.bao.linh/topdup_open/run_autoload.py
 ```
 
-# Docker
+# 2. Docker
 (Pending)
 ## Setup
 Set Username, Password for Data crawler Receiver in .env
