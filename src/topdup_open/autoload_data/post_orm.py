@@ -93,7 +93,7 @@ def load_pickle_data(fn):
             all_data = pickle.load(f)
             f.close()
         except:
-            print("pickle file is empty")
+            logger.exception("pickle file is empty")
     return all_data
 
 
@@ -107,7 +107,7 @@ def check_valid_post(post, session):
         all_post = session.query(Post.title, Post.url).all()
         for title, url in all_post:
             if post.title == title and post.url == url:
-                logger.debug('This post is already exists in database')
+                logger.debug(f'This post is already exists in database: {post.title}')
                 return False
         return True
 
@@ -115,22 +115,22 @@ def check_valid_post(post, session):
         logger.exception(e)
         return False
 
+df = None
 
-# will be removed when integrate to rabbitmq
-# df = pd.read_csv(_config.FAKE_DATASET)
-
-
-# def fake_data():
-#     id = randint(0, len(df)-1)
-#     item = df.loc[id]
-#     try:
-#         url = item['link']
-#     except:
-#         url = ''
-#     post = Post(
-#         title=item['title'],
-#         content=item['content'],
-#         author='author',
-#         url=url,
-#     )
-#     return post
+def fake_data():
+    global df
+    if df is None:
+        df = pd.read_csv(_config.FAKE_DATASET)
+    id = randint(0, len(df)-1)
+    item = df.loc[id]
+    
+    try:
+        url = item['link']
+    except:
+        url = ''
+    post = Post(
+        title=item['title'],
+        content=item['content'],
+        url=url,
+    )
+    return post

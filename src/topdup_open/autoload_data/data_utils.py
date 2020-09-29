@@ -19,7 +19,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from ._config import *
 from .raw_post import RawPost
 from .post_orm import Post
-from .post_orm import create_session, load_pickle_data, check_valid_post
+from .post_orm import create_session, load_pickle_data
+from .post_orm import check_valid_post, fake_data
 from .utils.text_utils import doc2vec, compute_doc_similarity
 from .log import get_logger
 from .utils import save_body_to_pickle, load_body_from_pickle
@@ -48,6 +49,7 @@ def handle_post(new_posts):
 
     new_posts = [post for post in new_posts if post.embedd_vector is not None]
     old_posts = load_pickle_data(EMBEDDING_FILE)
+    logger.debug(f"OLD POSTS LENGTH: {len(old_posts)}")
     session.commit()
 
     # compute and search nearest post
@@ -118,6 +120,10 @@ def read_data_from_source(data_source='rabbitmq', save_raw_data=False):
         posts = [RawPost(body).to_orm_post() for body in all_body]
         return posts
     
+    if data_source == 'csv_dataset':
+        posts = [fake_data() for i in range(MAX_POST)]
+        return posts
+
     # connect to RabbitMQ
     # login
     credentials = pika.PlainCredentials(USERNAME, PASSWORD)
@@ -128,8 +134,9 @@ def read_data_from_source(data_source='rabbitmq', save_raw_data=False):
     queue_state = channel.queue_declare(POST_QUEUE, durable=True, passive=True)
     channel.queue_bind(exchange=EXCHANGE, queue=POST_QUEUE)
     queue_length = queue_state.method.message_count
-
-    # get message
+    logger.debug(f"QUEUE LENGTH: {queue_length}")
+    
+    # start get message
     load_time = 0
     count_post = 0
     raw_posts = []
