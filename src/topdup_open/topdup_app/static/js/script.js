@@ -28,6 +28,6 @@ $(document).ready( function () {
             cell.innerHTML = i+1;
         } );
     } ).draw();
-    var myVar = "Data 1";
-    $('#home_table').append('<caption style="caption-side: top-right">'+myVar+'</caption>')
+    // var myVar = "Data 1";
+    // $('#home_table').append('<caption style="caption-side: top-right">'+myVar+'</caption>')
 } );

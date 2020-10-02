@@ -8,7 +8,7 @@ import json
 
 @app.route("/")
 @app.route("/home")
-@cached(cache= TTLCache(maxsize= 1000, ttl = 300))
+@cached(cache= TTLCache(maxsize= 1000, ttl = 100))
 def home():
     posts = Post.query.filter(Post.similar_post_info != json.dumps(
         [])).order_by(Post.id.desc()).all()
@@ -30,5 +30,7 @@ def about():
 @cached(cache= TTLCache(maxsize= 1000, ttl = 300))
 def post(post_id):
     post = Post.query.get_or_404(post_id)
+    if post.url:
+        post.domain = re.search('https?:\/\/([\w.]+)\/', post.url).group(1)
     post.get_similar_post_info()
     return render_template('post_detail.html', post=post)

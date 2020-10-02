@@ -10,10 +10,11 @@ from sqlalchemy import create_engine
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
+from .log import get_logger
 from . import _config
 
 
+logger = get_logger(__name__)
 engine = create_engine(_config.DATABASE_URI, echo=False)
 Base = declarative_base()
 
@@ -92,26 +93,44 @@ def load_pickle_data(fn):
             all_data = pickle.load(f)
             f.close()
         except:
-            print("pickle file is empty")
+            logger.exception("pickle file is empty")
     return all_data
 
 
+def check_valid_post(post, session):
+    try:
+        l = len(post.content)
+        if l < _config.MIN_CHARACTER_LEN:
+            logger.debug(f'post content is too short: length {l}, {post.title},  {post.url}')
+            return False
 
-# will be removed when integrate to rabbitmq
-# df = pd.read_csv(_config.FAKE_DATASET)
+        all_post = session.query(Post.title, Post.url).all()
+        for title, url in all_post:
+            if post.title == title and post.url == url:
+                logger.debug(f'This post is already exists in database: {post.title}')
+                return False
+        return True
 
+    except Exception as e:
+        logger.exception(e)
+        return False
 
-# def fake_data():
-#     id = randint(0, len(df)-1)
-#     item = df.loc[id]
-#     try:
-#         url = item['link']
-#     except:
-#         url = ''
-#     post = Post(
-#         title=item['title'],
-#         content=item['content'],
-#         author='author',
-#         url=url,
-#     )
-#     return post
+df = None
+
+def fake_data():
+    global df
+    if df is None:
+        df = pd.read_csv(_config.FAKE_DATASET)
+    id = randint(0, len(df)-1)
+    item = df.loc[id]
+    
+    try:
+        url = item['link']
+    except:
+        url = ''
+    post = Post(
+        title=item['title'],
+        content=item['content'],
+        url=url,
+    )
+    return post

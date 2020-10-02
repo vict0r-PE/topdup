@@ -1,22 +1,23 @@
 
-# Virtual Env
-## Set up environment
+# 1. Virtual Env
+## 1.1 Set up environment
+
+Open terminal and move to topdup_open directory 
 ```
     virtualenv -p python3 env
     source env/bin/activate
     pip install -r requirements.txt
 ```
 
-Set Username, Password for Data crawler Receiver in .env
+Copy file **.env-example** &#8594; **.env** . Then set Username, Password for Data crawler Receiver in file .env
 ```
     USERNAME_MONITOR='your_username'
     PASSWORD_MONITOR='your_pass'
 ```
 
-
-
 ## Dataset
-Download dataset in: [post_database.db](https://drive.google.com/file/d/1YtXEDgFQPpZRT3eeCdVKiGWkNRi8lW48) and put it in folder /dataset
+Download database, tf-idf-model, post_embedded_vector... in: [Topdup dataset](https://drive.google.com/drive/folders/1UcSU9CcTtv3o1mPuLpmFYrhEK2fJcTuC?usp=sharing) and put it in folder ./dataset
+
 ## Auto load data and save to database
 ```
     python run_autoload.py
@@ -26,7 +27,14 @@ Download dataset in: [post_database.db](https://drive.google.com/file/d/1YtXEDgF
 ```
     python run_app.py
 ```
-## Set autoload_data as linux crontab for automation receive data from crawler through Rabbitmq
+## Set autoload_data as linux crontab for automation receive data from crawler through Rabbitmq (In staging/production phase).
+
+Open run_autoload.sh and set value of topdup_open_obsolute_path
+
+Example:
+```
+    cd /home/nguyen.thanh.trungb/Desktop/topdup/src/topdup_open
+```
 
 Open crontab schedule: 
 ```
@@ -34,17 +42,12 @@ Open crontab schedule:
 ```
 Add a schedule to run load_data code one time per minutes
 ```
-    * * * * * absolute_path_python absolute_path_run_autoload.py
+    * * * * * sh obsolute_path_of_run_autoload_sh
 ```
-absolute_path_python: Set absolute path to python environment  
-absolute_path_run_autoload: Set absolute path to file run_autoload.py
+obsolute_path_of_run_autoload_sh: obsolute path of file **run_autoload.sh**.
 
-Example:
-```
-    * * * * * /home/doan.bao.linh/env/bin/python /home/doan.bao.linh/topdup_open/run_autoload.py
-```
 
-# Docker
+# 2. Docker
 (Pending)
 ## Setup
 Set Username, Password for Data crawler Receiver in .env
