@@ -30,8 +30,8 @@ logger = get_logger(__name__)
 
 
 def handle_post(new_posts):
-    """ Handle post: 
-        Compute post_embedding, 
+    """ Handle post:
+        Compute post_embedding,
         Search nearest post candidate for each post base on post_embedding
         Re-compute similarity_score for each candidate by Jaccard metric in compute_doc_similarity()
         Save post to database and pickle file
@@ -119,13 +119,14 @@ def read_data_from_source(data_source='rabbitmq', save_raw_data=False):
         logger.debug(f"Number of data_body in pickle file: {len(all_body)}")
         posts = [RawPost(body).to_orm_post() for body in all_body]
         return posts
-    
+
     if data_source == 'csv_dataset':
         posts = [fake_data() for i in range(MAX_POST)]
         return posts
 
     # connect to RabbitMQ
     # login
+
     credentials = pika.PlainCredentials(USERNAME, PASSWORD)
     parameters = pika.ConnectionParameters(HOST, PORT, '/', credentials)
     connection = pika.BlockingConnection(parameters)
@@ -135,7 +136,7 @@ def read_data_from_source(data_source='rabbitmq', save_raw_data=False):
     channel.queue_bind(exchange=EXCHANGE, queue=POST_QUEUE)
     queue_length = queue_state.method.message_count
     logger.debug(f"QUEUE LENGTH: {queue_length}")
-    
+
     # start get message
     load_time = 0
     count_post = 0
@@ -150,7 +151,7 @@ def read_data_from_source(data_source='rabbitmq', save_raw_data=False):
             # parse message into Post
             post = RawPost(body)
             posts.append(post)
-    
+
     if save_raw_data:
         save_body_to_pickle([p._body for p in posts])
     posts = [p.to_orm_post() for p in posts]
