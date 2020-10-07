@@ -115,18 +115,3 @@ def compute_doc_similarity(doc1, doc2, threshold=_config.SENTENCE__SCORE_THRESH)
     valid_score = list(filter(lambda x: x > threshold, score_list))
     summary_score = len(valid_score)/(max(w, h))
     return summary_score
-
-
-def check_valid_content(content):
-    # text = normalize_text(content, split=False)
-    # words = text.split()
-    # if len(words) <= _config.MIN_WORD:
-    #     return False
-    # return True
-    try:
-        if len(content) < _config.MIN_CHARACTER_LEN:
-            return False
-        return True
-    except Exception as e:
-        logger.exception(e)
-        return False

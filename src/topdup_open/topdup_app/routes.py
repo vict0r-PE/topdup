@@ -39,5 +39,7 @@ def about():
 @cached(cache= TTLCache(maxsize= _config.CACHE_MAXSIZE, ttl = _config.CACHE_TTL))
 def post(post_id):
     post = Post.query.get_or_404(post_id)
+    if post.url:
+        post.domain = re.search('https?:\/\/([\w.]+)\/', post.url).group(1)
     post.get_similar_post_info()
     return render_template('post_detail.html', post=post)
