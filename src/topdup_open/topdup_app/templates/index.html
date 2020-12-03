@@ -6,7 +6,8 @@
         <tr>
             <th>No.</th>
             <th>Title</th>
-            <th>Website</th>
+            <th>Source Domain</th>
+            <th>Cloned Domain</th>
             <th>Similarity Score</th>
             <th>Published Date</th>
         </tr>
@@ -24,6 +25,9 @@
             </td>
             <td>
                 {{ post.domain }}
+            </td>
+            <td>
+                <!-- {{ post.domain }} --> <br>
                 {% for similar_post in post.similar_post[:3] %}
                     <br>{{ similar_post.domain }}
                 {% endfor %}
@@ -42,6 +46,16 @@
     {% endif %}
 {% endfor %}
 </tbody>
+<tfoot>
+    <tr>
+        <th>No.</th>
+        <th>Title</th>
+        <th>Source Domain</th>
+        <th>Cloned Domain</th>
+        <th>Similarity Score</th>
+        <th>Published Date</th>
+    </tr>
+</tfoot>
 </table>
 
 <table id="all_posts_table" class="display">
