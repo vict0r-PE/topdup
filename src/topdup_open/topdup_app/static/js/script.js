@@ -7,7 +7,7 @@ $(document).ready( function () {
     var table1 = $('#home_table').DataTable({
         "lengthMenu": [[2, 10, 25, -1], [2, 10, 25, "All"]],
         stateSave: true,
-        "bSort": false,
+        "bSort": true,
         initComplete: function () {
             // Apply the search
             this.api().columns().every( function () {
