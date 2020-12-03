@@ -61,12 +61,3 @@ class RawPost():
             author=self.author,
             publish_time=self.publish_time)
         return post
-
-    def to_dict(self):
-        return {
-            "title": self.title,
-            "content": self.content,
-            "author": self.author,
-            'publish_time': self.publish_time,
-            'url': self.url
-        }
