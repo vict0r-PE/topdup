@@ -5,9 +5,17 @@ $(document).ready( function () {
     } );
 
     var table1 = $('#home_table').DataTable({
-        "lengthMenu": [[2, 10, 25, -1], [2, 10, 25, "All"]],
+        "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
         stateSave: true,
         "bSort": true,
+        "columnDefs": [
+            { "width": "5%", "targets": 0 },
+            { "width": "50%", "targets": 1 },
+            { "width": "10%", "targets": 2 },
+            { "width": "10%", "targets": 4 },
+            { "width": "10%", "targets": 4 },
+            { "width": "15%", "targets": 5 }
+          ],
         initComplete: function () {
             // Apply the search
             this.api().columns().every( function () {
