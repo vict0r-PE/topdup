@@ -9,28 +9,26 @@ $(document).ready( function () {
         stateSave: true,
         "bSort": true,
         "columnDefs": [
-            { "width": "5%", "targets": 0 },
-            { "width": "50%", "targets": 1 },
-            { "width": "10%", "targets": 2 },
-            { "width": "10%", "targets": 4 },
-            { "width": "10%", "targets": 4 },
-            { "width": "15%", "targets": 5 }
+            { "targets": 0, "width": "5%" },
+            { "targets": 1, "width": "50%",  },
+            { "targets": 2, "width": "15%", "searchable": true, "orderable":false},
+            { "targets":[3,4, 5], "width": "10%"  },
+            { "searchable": false, "targets" : '_all' }
           ],
-        initComplete: function () {
-            // Apply the search
-            this.api().columns().every( function () {
-                var that = this;
-                
-                $( 'input', this.footer() ).on( 'keyup change clear', function () {
-                    if ( that.search() !== this.value ) {
-                        that
-                            .search( this.value )
-                            .draw();
-                    }
-                } );
-            } );
-        },
+
     });
+
+    table1.columns().eq( 0 ).each( function ( colIdx ) {
+            if( table1.settings()[0].aoColumns[colIdx].bSearchable ){
+            table1.column( colIdx ).header().innerHTML=table1.column( colIdx ).footer().innerHTML;
+        }
+            $( 'input', table1.column( colIdx ).header() ).on( 'keyup change', function () {
+                table1
+                    .column( colIdx )
+                    .search( this.value )
+                    .draw();
+            } );
+        } );
 
     table1.on( 'order.dt search.dt', function () {
         table1.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
