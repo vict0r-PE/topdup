@@ -12,16 +12,16 @@
     <tbody>
         <tr>
             <td></td>
-            <td>{{post.title}}</td>
+            <td><a href="{{post.url}}" target="_blank">{{post.title}}</a></td>
             <td></td>
-            <td><a href="{{post.url}}">{{post.domain}}</a></td>
+            <td>{{post.domain}}</td>
         </tr>
         {% for similar_post in post.similar_post %}
             <tr>
                 <td></td>
-                <td>{{ similar_post.title }}</td>
+                <td><a href="{{ similar_post.url }}" target="_blank">{{ similar_post.title }}</a></td>
                 <td>{{ "%0.4f"|format(similar_post.score) }}</td>
-                <td><a href="{{ similar_post.url }}">{{ similar_post.domain }}</a></td>
+                <td>{{ similar_post.domain }}</td>
             </tr>
         {% endfor %}
     </tbody>

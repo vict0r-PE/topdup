@@ -6,7 +6,8 @@
         <tr>
             <th>No.</th>
             <th>Title</th>
-            <th>Website</th>
+            <th>Source Domain</th>
+            <th>Duplicated Domain</th>
             <th>Similarity Score</th>
             <th>Published Date</th>
         </tr>
@@ -17,13 +18,16 @@
         <tr>
             <td></td>
             <td>
-                <a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a>
+                <a href="{{ post.url }}">{{ post.title }}</a>
                 {% for similar_post in post.similar_post[:3] %}
-                    <br><a href="{{ url_for('post', post_id=similar_post.id) }}">{{ similar_post.title}}</a>
+                    <br><a href="{{ similar_post.url }}">{{ similar_post.title}}</a>
                 {% endfor %}
             </td>
             <td>
                 {{ post.domain }}
+            </td>
+            <td>
+                <!-- {{ post.domain }} --> <br>
                 {% for similar_post in post.similar_post[:3] %}
                     <br>{{ similar_post.domain }}
                 {% endfor %}
@@ -42,6 +46,16 @@
     {% endif %}
 {% endfor %}
 </tbody>
+<tfoot hidden>
+    <tr>
+        <th>No.</th>
+        <th>Title</th>
+        <th>Source Domain</th>
+        <th>Duplicated Domain</th>
+        <th>Similarity Score</th>
+        <th>Published Date</th>
+    </tr>
+</tfoot>
 </table>
 
 <table id="all_posts_table" class="display">
