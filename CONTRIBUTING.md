@@ -8,7 +8,7 @@ Dự án được chia thành 3 service chính, hoạt động độc lập nhau
 - Service frontend: hiển thị dữ liệu, giúp chủ blog, website dễ dàng kiểm tra bài viết có bị sao chép trái phép hay không 
 
 ### Tôi có thể đóng góp cho dự án này như thế nào ?  
-- Tham gia [Slack cuả dự án](topdupworkspace.slack.com) để cùng thảo luận về giải pháp 
+- Tham gia [Slack cuả dự án](https://docs.google.com/forms/d/e/1FAIpQLSei9tNQp4NVCfYgFtS0TbVlXeJeaEK1Iv5PqEGGgNv0Dkv8vw/viewform) để cùng thảo luận về giải pháp 
 - Tham gia tạo file cấu hình để service quét bài viết có thể thu thập được nhiều dữ liệu hơn 
 - Tự xây dựng service phát hiện bài trùng lặp bằng thuật toán và mô hình cuả riêng bạn 
 - Tham gia xây dựng frontend cho dự án (khuyến khích sử dụng React và lấy dữ liệu qua API)
