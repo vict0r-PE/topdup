@@ -1,0 +1,12 @@
+dataset/post_database.db
+dataset/post_database.db-journal
+dataset/fake_dataset.csv
+dataset/post_embedding.pkl
+dataset/post_dataset.pkl
+dataset/logs.txt
+dataset/cron.log
+__pycache__
+env/
+.env
+*.pyc
+*.ipynb
