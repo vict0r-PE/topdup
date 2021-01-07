@@ -1,16 +1,2 @@
-src/topdup_open/dataset/post_database.db
-src/topdup_open/dataset/post_database.db-journal
-src/topdup_open/dataset/fake_dataset.csv
-src/topdup_open/dataset/post_embedding.pkl
-src/topdup_open/dataset/post_dataset.pkl
-
-src/topdup_open/dataset/logs.txt
-src/topdup_open/dataset/cron.log
-src/topdup_open/*/__pycache__
-src/topdup_open/**/__pycache__
-src/topdup_open/env/
-src/topdup_open/.env
-src/topdup_open/*/*.pyc
-src/topdup_open/**/*.pyc
-src/topdup_open/*.ipynb
+# Text editor
 .vscode/

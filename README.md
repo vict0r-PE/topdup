@@ -8,11 +8,22 @@ Dự án là một nỗ lực nhằm chống lại tình trạng vi phạm bản
 # Tiến độ và kết quả dự án   
 Tính đến ngày 26/9/2020, dự án đã cơ bản hoàn thành bộ quét bài viết từ các trang công nghệ phổ biến tại Việt Nam trên cơ sở bộ quét [Đọc báo](https://github.com/hailoc12/docbao). Model phát hiện bài viết trùng lặp và frontend hiển thị dữ liệu cơ bản cũng đã được hoàn tất. 
 
-Để đóng góp cho dự án, mời bạn tham khảo [CONTRIBUTING.md](https://github.com/forummlcb/topdup/blob/master/CONTRIBUTING.md)  
+Để đóng góp cho dự án, mời bạn tham khảo [CONTRIBUTING.md](../docs/CONTRIBUTING.md)  
+
+# Cấu trúc dự án hiện tại 
+Hiện tại TopDup được chia thành 5 modules chính để các team có thể phân chia phát triển song song với nhau 
+
+![High Level Architecture](docs/topdup_highlevel.png)
 
 # Cấu trúc thư mục 
 ~~~
-/src: chứa toàn bộ mã nguồn cuả dự án
-    /docbao: mã nguồn quét dữ liệu 
-    /topdup_open: mã nguồn lọc bài viết trùng và frontend 
+/modules: chứa toàn bộ mã nguồn cuả dự án, được chia theo từng modules
+    /crawlers: mã nguồn quét dữ liệu 
+    /data_wranglers: mã nguồn xử lí và làm sạch dữ liệu 
+    /ml: mã nguồn cho machine learning / AI 
+    /ml_api: mã nguồn cho public contract của ML/AI
+    /web_app: mã nguồn cho website TopDup
+    /legacies: mã nguồn cho TopDup phiên bản cũ (sau này sẽ xoá khi phiên bản TopDup mới được release)
+        /topdup_open: mã nguồn lọc bài viết trùng và frontend 
+        /docbao: max nguồn quét dữ liệu
 ~~~
