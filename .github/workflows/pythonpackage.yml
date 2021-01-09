@@ -36,6 +36,5 @@ jobs:
         mypy ./modules/**/*.py
     - name: Test with pytest
       run: |
-        python setup.py install
         pip install pytest
         python3 -m pytest -s
