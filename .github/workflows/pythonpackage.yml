@@ -33,7 +33,7 @@ jobs:
         flake8 . --count  --show-source --statistics
     - name: Check type annotations with mypy
       run: |
-        mypy ./modules
+        mypy ./modules/**/*.py
     - name: Test with pytest
       run: |
         python setup.py install
