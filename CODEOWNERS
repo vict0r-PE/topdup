@@ -5,4 +5,4 @@
 /modules/legacies/
 /modules/ml/ @victurtle
 /modules/ml_api/ @victurtle
-/modules/web_app/
+/modules/web_app/ @phamcong
