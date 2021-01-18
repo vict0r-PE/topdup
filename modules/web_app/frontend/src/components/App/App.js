@@ -5,6 +5,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import Preferences from "../Preferences/Preferences";
 import Login from "../Login/Login";
 import useToken from "./useToken";
+import TableView from "../tableView/TableView";
 
 function App() {
   const { token, setToken } = useToken();
@@ -36,17 +37,18 @@ function App() {
 
         <div className="auth-wrapper">
           <div className="auth-inner">
-            <Switch>
-              <Route
-                exact
-                path="/"
-                component={() => {
-                  return !token ? <Login setToken={setToken} /> : <Dashboard />;
-                }}
-              />
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/Preferences" component={Preferences} />
-            </Switch>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              component={() => {
+                return !token ? <Login setToken={setToken} /> : <Dashboard />;
+              }}
+            />
+            <Route exact path="/tableView" component={TableView} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/Preferences" component={Preferences} />
+          </Switch>
           </div>
         </div>
       </div>

@@ -38,5 +38,11 @@
 }
 
 .wrapper {
-  padding: 20px;
+  margin: 70px;
+  padding: 1000px;
+}
+.auth-inner {
+  height: auto;
+  width: auto;
+  padding: 70px;
 }
