@@ -1,4 +1,45 @@
-.container {
-    max-width: 700px;
-    margin: auto;
+.container{
+    background-color: #ccc;
+}
+
+/* .col-{
+    font-size: 15px;
+    text-align: center;
+} */
+
+[class*="col-"] {
+    background-color: #FFFBFB;
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    border-width: 1px; 
+}
+
+[class*="header col-"] {
+    background-color: #074B80;
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    border-width: 1px;
+}
+
+label {
+    color: #308FDF;
+}
+
+
+.container.row{
+    border-style: ridge;
+    border-color: black;
+    border-width: thin;
+}
+
+.col-1 {
+    align-items: center;
+}
+
+.top-buffer { margin-top:20px; }
+
+.bottom-buffer { margin-bottom: 20px;}
+
+.no-padding {
+  padding: 0px;
 }

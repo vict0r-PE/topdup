@@ -1,0 +1,22 @@
+{
+  "name": "topdup",
+  "version": "1.0.0",
+  "description": "TopDup là dự án cộng đồng được khởi xướng bởi [Forum Machine Learning Cơ bản](https://www.facebook.com/groups/machinelearningcoban) nhằm hỗ trợ các website, blog công nghệ bảo vệ bản quyền bài viết và chống sao chép.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vict0r-PE/topdup.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vict0r-PE/topdup/issues"
+  },
+  "homepage": "https://github.com/vict0r-PE/topdup#readme"
+}

@@ -36,7 +36,7 @@ function App() {
         </nav>
 
         <div className="auth-wrapper">
-          <div className="auth-inner">
+          {/* <div className="auth-inner"> */}
           <Switch>
             <Route
               exact
@@ -49,7 +49,7 @@ function App() {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/Preferences" component={Preferences} />
           </Switch>
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </BrowserRouter>

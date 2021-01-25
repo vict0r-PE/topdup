@@ -37,12 +37,12 @@
   }
 }
 
-.wrapper {
-  margin: 70px;
-  padding: 1000px;
+.auth-wrapper {
+  margin: auto;
+  padding: auto;
 }
 .auth-inner {
   height: auto;
   width: auto;
-  padding: 70px;
+  padding: auto;
 }
